@@ -26,8 +26,8 @@ void bfsearch( int start, int goal )
     // キュー入出力用に使う変数。frontは先頭、rearは末尾。
     // rearは次のノードの取り込み位置、frontは親ノード兼次の削除位置として利用
     int rear = 1, front = 0;
-    q[0]=start; // 一番最初の親ノード、杜撰な管理でおk
-    path[0]=@"残額の経路"; // 一番最初の親ノード、入れるものはぶっちゃけ何でもいい
+    q[front]=start; // 一番最初の親ノード、杜撰な管理でおk
+    path[front]=@"残額の経路"; // 一番最初の親ノード、入れるものはぶっちゃけ何でもいい
     while( front < rear ){ // #0.ループ設定 front=rearはキューが空の状態を表す
         if(q[front]!=goal){ // 残額初期値が0=64回目の支払いでキューへの取り込み終了
             for(int i = 0; i < coinkind; i++){ // #1.子ノード取り込み処理開始
@@ -44,7 +44,7 @@ void bfsearch( int start, int goal )
                     // キュー[rear]の位置に残額[front]から硬貨分を引いて格納
                     // キューのサイズ節約のため、残額がマイナスになったらキューに取り込まない
                 }else if(q[front]-coinvalue[i]>0){
-                    q[rear]=q[front]-coinvalue[i]; // #3.実際に子ノードを取り込む処理
+                    q[rear]=q[front]-coinvalue[i]; // #3.実際に子ノードをキューに取り込む処理
                     // 親ノードq[front]を経路出力用に文字列として格納
                     path[rear]=[NSString stringWithFormat:@"%@,%d",path[front],q[front]];
                     rear++; // #4.キューに取り込んだら、次に取り込む位置に移動
